@@ -32,8 +32,6 @@
 	ar = !git ls-files -d -o --exclude-standard -z | xargs -0 git update-index --add --remove
 
 	ls = ls-tree --name-only HEAD
-
-	sync = !rsync -azv --delete $(git rev-parse --show-toplevel) uedsky.com:~/ --exclude={.git,_source}
 [format]
 	pretty = format: %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset
 [color]

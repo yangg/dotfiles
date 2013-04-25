@@ -1,3 +1,14 @@
+
+" Set variables {{{
+let mapleader=';'
+let $CACHEDIR=$HOME.'/.cache'
+
+if !isdirectory($CACHEDIR) | call mkdir($CACHEDIR) | end
+if has('win32') || has('win64')
+    let &rtp = substitute(&rtp, 'vimfiles', '.vim', 'g')
+end
+" }}}
+
 set nocompatible                " be iMproved
 filetype off                    " required!
 
@@ -25,8 +36,6 @@ autocmd BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/*
 Bundle 'tomasr/molokai'
 silent! colorscheme molokai
 
-
-let mapleader=';'
 
 " Boundles config {{{
 " NERDCommenter
@@ -94,6 +103,7 @@ let html_number_lines = 1
 " }}}
 
 " Set options {{{
+syntax on
 filetype plugin indent on
 set backspace=indent,eol,start
 set whichwrap+=<,>,[,]
@@ -102,8 +112,8 @@ set number ruler showcmd
 set hlsearch incsearch
 set fileformats=unix,dos encoding=utf-8
 set fileencodings=ucs-bom,utf-8,default,cp936,gb18030,big5,latin1
-set undofile undodir=~/.cache
-set dir=~/.cache//
+set undofile undodir=$CACHEDIR
+set dir=$CACHEDIR//
 set autochdir
 set modeline modelines=2
 set ignorecase smartcase
