@@ -1,0 +1,9 @@
+
+
+## Installation
+```bash
+# mv .vimrc{,.local}
+# mv .vim{,.bak}
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+wget https://raw.github.com/yangg/dotfiles/master/.vimrc
+```
