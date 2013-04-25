@@ -1,0 +1,73 @@
+
+if [ "$(uname)" = Darwin ]; then
+    # show or hide All Files/Desktop Icons/Filename extentions in Finder
+    # Usage:
+    #       show <command> [switch]
+    #       command     can be allfile/desktop/ext
+    # $ show allfile
+    # or
+    # $ show desktop 1
+    show() {
+        local package="com.apple.Finder"
+        local name="AppleShowAllFiles"
+        case ${1:-allfile} in
+            desktop) name="CreateDesktop";;
+            ext) name="AppleShowAllExtensions";package="NSGlobalDomain";;
+        esac
+        local val="${2:-1}"
+        if [ -z "$2" ]; then
+            [ `defaults read $package $name` = 1 ] && val=0
+        fi
+        if [ "$val" = 1 ]; then val=true; else val=false; fi
+        defaults write $package $name -bool $val && killall Finder
+    }
+    # complete -W "allfile desktop ext" show
+
+    # set volume to 1 - 7, http://xkcd.com/530/
+    volume() {
+        osascript -e "set volume $1"
+    }
+
+fi
+
+# Jump up to any directory above the current one
+upto() { cd "${PWD/\/$@\/*//$@}"; }
+
+# Create a data URI from an image
+# python -c 'print open("path/to/image.png", "rb").read().encode("base64").replace("\n","")'
+datauri() {
+    local file=$1
+    # if [[ "$1" =~ ^https?:// ]]; then
+    if [ "${1#http*://}" != "$1" ]; then
+        file="/tmp/${1##*/}"
+        curl -so "$file" "$1"
+    fi
+    [ -f "$file" ] && echo "data:image/${1##*.};base64,$(openssl base64 -in "$file")" | tr -d '\n'
+}
+
+cmdfu() {
+    curl -s "http://www.commandlinefu.com/commands/matching/$@/`echo -n $@ | openssl base64`/plaintext" | less -FX;
+}
+
+# python -c 'import urllib2, sys; print urllib2.urlopen(sys.argv[1]).url'
+unshort() {
+    curl -LIs "$1" | grep ^Location | cut -d' ' -f2
+}
+
+showme() {
+    if [ $# -eq 0 ]; then
+        for opt in addr gw ip ipr; do
+            echo $opt:$'\t' $(showme $opt)
+        done
+        return
+    fi
+    case $1 in
+        addr) (ifconfig eth0 2> /dev/null || ifconfig en0) | \grep -oE '([[:xdigit:]]{2}:){5}[[:xdigit:]]{2}' ;;
+        gw) [ "$(uname)" = Darwin ] && (netstat -nr | grep ^default | grep -v 'ppp' | awk '{print $2}') || (ip route show | awk '/default/ { print $3 }') ;;
+        ip) [ "$(uname)" = Darwin ] && (ipconfig getifaddr en0) || (ifconfig eth0 | grep 'inet addr' | sed -e 's/ *inet addr:\([^ ]*\).*/\1/') ;;
+        ipr) dig +short myip.opendns.com @resolver1.opendns.com ;;
+        *) echo 'Usage: show addr/gw/ip/ipr';
+    esac
+}
+
+# vim: ft=sh
