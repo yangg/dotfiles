@@ -23,10 +23,10 @@ Bundle 'gmarik/vundle'
 Bundle 'vim-scripts/mru.vim'
 Bundle 'vim-scripts/bufexplorer.zip'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'mattn/zencoding-vim'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
+Bundle 'scrooloose/nerdtree'
+Bundle 'mattn/zencoding-vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'ap/vim-css-color'
 Bundle 'yangg/html5.vim'
@@ -34,7 +34,6 @@ Bundle 'vim-scripts/nginx.vim'
 autocmd BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/*
             \ if &ft == '' | setfiletype nginx | endif 
 Bundle 'tomasr/molokai'
-silent! colorscheme molokai
 
 
 " Boundles config {{{
@@ -73,7 +72,6 @@ let user_zen_settings = {
             \           ."<body>\n\t${child}|\n</body>\n"
             \           ."<html>",
             \       'scr': '<script>\n|</script>',
-            \       'scr:jq': '<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>',
             \       'sty': '<style>\n|</style>'
             \   }
             \}
@@ -140,9 +138,9 @@ set laststatus=2
 set statusline=
 set statusline+=[%n]
 set statusline+=%1*\ %f%*
-set statusline+=%2*%{&modified?'\ -':''}\ %*
+set statusline+=%2*\ %m%*
 set statusline+=[%{&ff},%{&fenc}]
-set statusline+=%y%m%r
+set statusline+=%y%r
 set statusline+=%=%l,%c
 set statusline+=\ \ \ %P\ 
 hi default link User1 Define
@@ -150,10 +148,11 @@ hi default link User2 Keyword
 hi default link User3 Function
 " }}}
 if has("gui_running") " guioptions {{{
-    " set lines=30 columns=100    " Vim window size
+    set lines=30 columns=100    " Vim window size
     set guioptions-=T           " hide tool bar
     set guioptions-=m           " hide menu bar
-    set guifont=DejaVu\ Sans\ Mono\ 11
+    set guifont=DejaVu\ Sans\ Mono\ 11,Menlo:h14,Consolas:h12
+    colorscheme molokai
 end " }}}
 " }}}
 

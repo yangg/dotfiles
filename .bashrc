@@ -6,9 +6,8 @@ source $__script_path/.functions
 # https://github.com/git/git/tree/master/contrib/completion
 if [ ! -f "$HOME/.git-prompt.sh" ]; then
     echo 'Downloading git completion files...'
-    curl -so ~/.git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
-    curl -so ~/.git-prompt.sh https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
-    echo 'Done!'
+    curl -#o ~/.git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
+    curl -#o ~/.git-prompt.sh https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
 fi
 GIT_PS1_SHOWDIRTYSTATE=1
 source ~/.git-completion.bash
