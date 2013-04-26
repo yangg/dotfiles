@@ -1,3 +1,7 @@
 *
 !.gitignore
 !vundle
+!mru.vim
+!bufexplorer.zip
+!nerdcommenter
+!vim-surround
