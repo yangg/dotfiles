@@ -5,9 +5,8 @@
 ### Vim, bash and git
 ```bash
 cd
-git clone https://github.com/yangg/dotfiles.git .dotfiles
+git clone --recursive https://github.com/yangg/dotfiles.git .dotfiles
 ln -s ~/.dotfiles/{.vim,.vimrc,.gitconfig} ~/
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 if [ -f ~/.bash_profile ]; then
     echo 'source ~/.dotfiles/.bashrc' >> ~/.bash_profile
 elif [ -f ~/.bashrc ]; then
