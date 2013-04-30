@@ -7,7 +7,6 @@
 DOTDIR=${DOTDIR:-~/.dotfiles}
 git clone --recursive https://github.com/yangg/dotfiles.git $DOTDIR
 ln -s $DOTDIR/{.vim,.vimrc,.gitconfig} ~/
-ln -s $DOTDIR/scripts/aliases ~/.bash_aliases
 ln -s $DOTDIR/scripts/bashrc ~/.bashrc
 vim +BundleInstall +qa
 ```

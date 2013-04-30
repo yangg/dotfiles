@@ -1,6 +1,7 @@
 
 DOTDIR=${DOTDIR:-~/.dotfiles}
 source $DOTDIR/scripts/functions
+source $DOTDIR/scripts/aliases
 
 # https://github.com/git/git/tree/master/contrib/completion
 GIT_PS1_SHOWDIRTYSTATE=1
