@@ -30,6 +30,7 @@ Bundle 'mattn/zencoding-vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'ap/vim-css-color'
 Bundle 'yangg/html5.vim'
+Bundle 'pangloss/vim-javascript'
 Bundle 'vim-scripts/nginx.vim'
 autocmd BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/*
             \ if &ft == '' | setfiletype nginx | endif 
@@ -86,6 +87,8 @@ let Tlist_Exit_OnlyWindow = 1
 let Tlist_File_Fold_Auto_Close = 1
 " let Tlist_Show_One_File = 1
 let tlist_php_settings = 'php;c:class;d:constant;f:function'
+" http://stackoverflow.com/questions/1790623/how-can-i-make-vims-taglist-plugin-show-useful-information-for-javascript
+let tlist_javascript_settings = 'js;f:function'
 " let Tlist_Compact_Format = 1
 map <F4> :TlistToggle<CR>
 imap <F4> <C-o>:TlistToggle<CR>
@@ -113,6 +116,7 @@ set fileencodings=ucs-bom,utf-8,default,cp936,gb18030,big5,latin1
 set undofile undodir=$CACHEDIR
 set dir=$CACHEDIR//
 set autochdir
+set hidden                      " enable hide modified buffer for gf, :e
 set modeline modelines=2
 set ignorecase smartcase
 set scrolloff=1
@@ -125,7 +129,7 @@ set iskeyword=@,48-57,_,-
 set wildignore=*.swp,.DS_Store,.localized,.git,.svn
 set wildmenu
 set wildmode=longest:full
-set path=,,~/Documents,~/Dropbox/Snippets,~/Dropbox/Projects
+set path=,,~/Documents,~/Dropbox/Projects,~/Dropbox/Snippets
 set nobackup backupcopy=yes
 set history=99
 " set diffopt+=vertical         " use :vert diffsplit instead
@@ -165,10 +169,10 @@ autocmd BufWinEnter *
             \ if line("'\"") <= line("$") |
             \   exe "normal! g`\"" | exe "normal! zv" |
             \ endif
-autocmd FileType vim,help setlocal keywordprg=:help
-autocmd FileType gitconfig setlocal noexpandtab
-autocmd FileType css setlocal iskeyword+=#
-autocmd FileType php,sh setlocal iskeyword+=$
+autocmd FileType json,yaml  setlocal ts=2 sw=2 sts=2
+autocmd FileType ruby       setlocal ts=2 sw=2 sts=2
+autocmd FileType vim,help   setlocal keywordprg=:help
+autocmd FileType gitconfig  setlocal noexpandtab
 
 autocmd FileType html,php,javascript setl includeexpr=substitute(v:fname,'^/','','')
 
@@ -246,5 +250,4 @@ if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
 endif
 
-" test
 " vim: ft=vim fdm=marker
