@@ -13,14 +13,20 @@ shopt -s cdspell
 shopt -s autocd 2> /dev/null
 
 # Bash Color Chart http://www.arwin.net/tech/bash.php
-PS1='\u@\h: \[\e[32m\]\w\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
+# PS1='\u@\h: \[\e[32m\]\w\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
+# https://github.com/milkbikis/powerline-shell
+function __get_cwd() {
+    python $DOTDIR/scripts/get_cwd.py
+}
+PS1='\u@\h: \[\e[32m\]$(__get_cwd)\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
+
+
 
 HISTIGNORE='ls:exit'
 
 # complete -W "$(sed -E 's/[, ].*//' ~/.ssh/known_hosts)" ssh
 [ -e ~/.ssh/config ] && complete -o nospace -W "$(perl -ne 'print "$1 " if /^Host (.+)$/' ~/.ssh/config)" ssh
 complete -o nospace -W 'allfile desktop ext' show
-complete -o nospace -W 'addr gw ip ipr' showme
 _complete_upto() {
     local IFS=$'\n'
     local word=${COMP_WORDS[COMP_CWORD]}

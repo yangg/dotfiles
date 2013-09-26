@@ -27,4 +27,7 @@ alias sudo='sudo '
 alias server='python -m SimpleHTTPServer'
 alias gdiff='git diff --no-index'
 
+# python -c 'import urllib2, sys; print urllib2.urlopen(sys.argv[1]).url'
+alias unshort='curl -ILso /dev/null -w "%{url_effective}\n"'
+
 # vim: ft=sh

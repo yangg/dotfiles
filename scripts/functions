@@ -1,4 +1,8 @@
 
+# display function definition
+# declare -f [funcName]
+# type funcName
+
 if [ "$(uname)" = Darwin ]; then
     # show or hide All Files/Desktop Icons/Filename extentions in Finder
     # Usage:
@@ -49,25 +53,22 @@ cmdfu() {
     curl -s "http://www.commandlinefu.com/commands/matching/$@/`echo -n $@ | openssl base64`/plaintext" | less -FX;
 }
 
-# python -c 'import urllib2, sys; print urllib2.urlopen(sys.argv[1]).url'
-unshort() {
-    curl -LIs "$1" | grep ^Location | cut -d' ' -f2
-}
-
 showme() {
-    if [ $# -eq 0 ]; then
-        for opt in addr gw ip ipr; do
-            echo $opt:$'\t' $(showme $opt)
-        done
-        return
+    if [ "$(uname)" = Linux ]; then
+        # nmcli device list iface eth0
+        nm-tool | cut -c3- \
+            | sed -n '/HW Address/p;/IPv4 Settings/,$p' \
+            | sed "/^$/d;4 i 　Remote Address:  $(dig +short myip.opendns.com @resolver1.opendns.com)"
+    else
+        local info="$(networksetup -getinfo Wi-Fi)"
+        echo "HW Address:        $(echo "$info" | awk '/^Wi-Fi ID/{print $3}')"
+        echo "IPv4 Settings:"
+        echo "  Address:         $(echo "$info" | awk '/^IP address/{print $3}')"
+        echo "  Remote Address:  $(dig +short myip.opendns.com @resolver1.opendns.com)"
+        echo "  Prefix:          $(echo "$info" | awk '/^Subnet mask/{print $3}')"
+        echo "  Gateway:         $(echo "$info" | awk '/^Router/{print $2}')"
+        cat /etc/resolv.conf | awk '/nameserver/{ print "  DNS:            ", $2 }'
     fi
-    case $1 in
-        addr) (ifconfig eth0 2> /dev/null || ifconfig en0) | \grep -oE '([[:xdigit:]]{2}:){5}[[:xdigit:]]{2}' ;;
-        gw) [ "$(uname)" = Darwin ] && (netstat -nr | grep ^default | grep -v 'ppp' | awk '{print $2}') || (ip route show | awk '/default/ { print $3 }') ;;
-        ip) [ "$(uname)" = Darwin ] && (ipconfig getifaddr en0) || (ifconfig eth0 | grep 'inet addr' | sed -e 's/ *inet addr:\([^ ]*\).*/\1/') ;;
-        ipr) dig +short myip.opendns.com @resolver1.opendns.com ;;
-        *) echo 'Usage: show addr/gw/ip/ipr';
-    esac
 }
 
 # vim: ft=sh

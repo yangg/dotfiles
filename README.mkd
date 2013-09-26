@@ -4,8 +4,7 @@
 
 ### Vim, bash and git
 ```bash
-DOTDIR=${DOTDIR:-~/.dotfiles}
-git clone --recursive https://github.com/yangg/dotfiles.git $DOTDIR
+git clone --recursive https://github.com/yangg/dotfiles.git ${DOTDIR:-~/.dotfiles}
 ln -s $DOTDIR/{.vim,.vimrc,.gitconfig} ~/
 ln -s $DOTDIR/scripts/bashrc ~/.bashrc
 vim +BundleInstall +qa
