@@ -67,7 +67,7 @@ let user_zen_settings = {
             \           ."<html>\n"
             \           ."<head>\n"
             \           ."\t<meta charset=\"${charset}\"/>\n"
-            \           ."\t<meta name=\"viewport\" content=\"width=device-width,minimum-scale=1.0,maximum-scale=2.0\" />\n"
+            \           ."\t<meta name=\"viewport\" content=\"width=device-width,minimum-scale=1.0\" />\n"
             \           ."\t<title></title>\n"
             \           ."</head>\n"
             \           ."<body>\n\t${child}|\n</body>\n"
@@ -130,7 +130,7 @@ set wildignore=*.swp,.DS_Store,.localized,.git,.svn
 set wildmenu
 set wildmode=longest:full
 set path=,,~/Documents,~/Dropbox/Projects,~/Dropbox/Snippets
-set nobackup backupcopy=yes
+set nobackup
 set history=99
 " set diffopt+=vertical         " use :vert diffsplit instead
 set splitright splitbelow
