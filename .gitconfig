@@ -25,8 +25,9 @@
 	dc = diff --cached
 	dh = diff HEAD
 
-	mine = !"git log --author=$(git config --get user.name) --no-merges"
+	mine  = !"git log --author=$(git config --get user.name) --no-merges"
 	today = !"git mine --since=1am --reverse --pretty=%s"
+	up    = !"git stash && git pull && git stash pop"
 
 	# add and remove new/deleted files from git index
 	ar = !git ls-files -d -o --exclude-standard -z | xargs -0 git update-index --add --remove
@@ -45,5 +46,3 @@
 [color "diff"]
 	meta = cyan
 	frag = magenta
-[push]
-	default = simple
