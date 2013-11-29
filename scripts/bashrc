@@ -12,14 +12,22 @@ shopt -s histappend
 shopt -s cdspell
 shopt -s autocd 2> /dev/null
 
-# Bash Color Chart http://www.arwin.net/tech/bash.php
-# PS1='\u@\h: \[\e[32m\]\w\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
 # https://github.com/milkbikis/powerline-shell
+# http://misc.flogisoft.com/bash/tip_colors_and_formatting
+# bash ~/Dropbox/Snippets/shell/bash-color.sh
+# \e[  : Start color scheme.
+# x;y  : Color pair to use (x;y)
+# \e[m : Stop color scheme
 function __get_cwd() {
     python $DOTDIR/scripts/get_cwd.py
 }
-PS1='\u@\h: \[\e[32m\]$(__get_cwd)\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
-
+function __get_status() {
+    if [ $? -ne 0 ]; then
+        echo -e ' \033[31m✗\033[m '
+    fi
+}
+PS1='$(__get_status)\u@\h: \[\e[32m\]$(__get_cwd)\[\e[m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[m\])")\$ '
+# PS1='\u@\h: \[\e[32m\]\w\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
 
 
 HISTIGNORE='ls:exit'

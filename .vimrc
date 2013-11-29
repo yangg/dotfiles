@@ -34,6 +34,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'vim-scripts/nginx.vim'
 autocmd BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/*
             \ if &ft == '' | setfiletype nginx | endif 
+Bundle 'leshill/vim-json'
 Bundle 'tomasr/molokai'
 
 
