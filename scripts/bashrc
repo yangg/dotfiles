@@ -41,3 +41,12 @@ _complete_upto() {
     COMPREPLY=($(echo ${PWD#/} | sed 's|/|\n|g' | grep -i "^$word" | sed -e 's| |\\ |g'))
 }
 complete -o nospace -F _complete_upto upto
+
+
+svn() {
+    if [ "$1" == "diff" -o "$1" = "di" ]; then
+        /usr/bin/svn "$@" | colordiff | less -FXRS
+    else
+        /usr/bin/svn "$@"
+    fi
+}

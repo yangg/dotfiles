@@ -26,7 +26,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'scrooloose/nerdtree'
-Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'ap/vim-css-color'
 Bundle 'yangg/html5.vim'
@@ -55,12 +55,12 @@ imap <M-/> <C-o><Plug>NERDCommenterToggle
 map <F3> :NERDTreeToggle<CR>
 imap <F3> <C-o>:NERDTreeToggle<CR>
 
-" zencoding
-" <C-Y>n        zencoding-goto-next-point
-" <C-Y>k        zencoding-remove-tag
-" <C-Y>j        zencoding-split-join-tag
-" <C-Y>a        zencoding-make-anchor-url
-let user_zen_settings = {
+" emmet
+" <C-Y>n        emmet-goto-next-point
+" <C-Y>k        emmet-remove-tag
+" <C-Y>j        emmet-split-join-tag
+" <C-Y>a        emmet-make-anchor-url
+let user_emmet_settings = {
             \'indentation' : '    ',
             \'html': {
             \   'snippets': {
@@ -72,13 +72,13 @@ let user_zen_settings = {
             \           ."\t<title></title>\n"
             \           ."</head>\n"
             \           ."<body>\n\t${child}|\n</body>\n"
-            \           ."<html>",
-            \       'scr': '<script>\n|</script>',
-            \       'sty': '<style>\n|</style>'
+            \           ."</html>",
+            \       'scr': "<script>\n|</script>",
+            \       'sty': "<style>\n|</style>"
             \   }
             \}
             \}
-" let use_zen_complete_tag = 1
+" let user_emmet_complete_tag = 1
 
 " taglist.vim taglist-intro
 if !executable('ctags') | let loaded_taglist = 1 | endif
@@ -112,7 +112,7 @@ set whichwrap+=<,>,[,]
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab shiftround
 set number ruler showcmd
 set hlsearch incsearch
-set fileformats=unix,dos encoding=utf-8
+set fileformats=unix,dos,mac encoding=utf-8
 set fileencodings=ucs-bom,utf-8,default,cp936,gb18030,big5,latin1
 set undofile undodir=$CACHEDIR
 set dir=$CACHEDIR//
