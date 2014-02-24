@@ -19,7 +19,7 @@ shopt -s autocd 2> /dev/null
 # x;y  : Color pair to use (x;y)
 # \e[m : Stop color scheme
 function __get_cwd() {
-    python $DOTDIR/scripts/get_cwd.py
+    [ -e $DOTDIR/scripts/get_cwd.py ] && python $DOTDIR/scripts/get_cwd.py || pwd
 }
 function __get_status() {
     if [ $? -ne 0 ]; then
