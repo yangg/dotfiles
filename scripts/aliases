@@ -17,6 +17,10 @@ alias ..='cd ..'
 alias ...='cd ../../'
 
 alias g=git
+alias st='git st'
+alias pu='git push'
+alias pl='git pull'
+alias gdiff='git diff --no-index'
 alias py=python
 alias so=source
 # enable sudo with aliases
@@ -25,7 +29,6 @@ alias so=source
 # http://www.gnu.org/software/bash/manual/bashref.html#Aliases
 alias sudo='sudo '
 alias server='python -m SimpleHTTPServer'
-alias gdiff='git diff --no-index'
 
 # python -c 'import urllib2, sys; print urllib2.urlopen(sys.argv[1]).url'
 alias unshort='curl -ILso /dev/null -w "%{url_effective}\n"'
