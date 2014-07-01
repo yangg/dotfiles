@@ -46,3 +46,5 @@
 [color "diff"]
 	meta = cyan
 	frag = magenta
+[push]
+	default = simple
