@@ -9,6 +9,13 @@ if has('win32') || has('win64')
 end
 " }}}
 
+" golang {{{
+if empty($GOROOT) | let $GOROOT='/usr/local/go' | end
+if isdirectory($GOROOT.'/misc/vim')
+    set rtp+=$GOROOT/misc/vim
+end
+" }}}
+
 set nocompatible                " be iMproved
 filetype off                    " required!
 

@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 
 DOTDIR=${DOTDIR:-~/.dotfiles}
 source $DOTDIR/scripts/functions
@@ -7,6 +8,11 @@ source $DOTDIR/scripts/aliases
 GIT_PS1_SHOWDIRTYSTATE=1
 source $DOTDIR/scripts/git-completion.bash
 source $DOTDIR/scripts/git-prompt.sh
+
+# golang environment
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/gocode
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 shopt -s histappend
 shopt -s cdspell
@@ -21,13 +27,19 @@ shopt -s autocd 2> /dev/null
 function __get_cwd() {
     [ -e $DOTDIR/scripts/get_cwd.py ] && python $DOTDIR/scripts/get_cwd.py || pwd
 }
+__ERROR_SIGN="✗"
 function __get_status() {
     if [ $? -ne 0 ]; then
-        echo -e ' \033[31m✗\033[m '
+        echo " $__ERROR_SIGN "
     fi
 }
-PS1='$(__get_status)\u@\h: \[\e[32m\]$(__get_cwd)\[\e[m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[m\])")\$ '
-# PS1='\u@\h: \[\e[32m\]\w\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
+PS1='\[\e[31m\]$(__get_status)\[\e[0m\]\u@\h: \[\e[32m\]\w\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
+if [ "$OS" = Windows_NT ]; then
+    __ERROR_SIGN="ㄨ"
+    # get fixed cwd in msysgit
+    PS1='\[\e[31m\]$(__get_status)\[\e[0m\]\u@\h: \[\e[32m\]$(__get_cwd)\[\e[m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[m\])")\$ '
+fi
+
 
 
 HISTIGNORE='ls:exit'

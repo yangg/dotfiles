@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 
 # display function definition
 # declare -f [funcName]
@@ -58,7 +59,7 @@ showme() {
         # nmcli device list iface eth0
         nm-tool | cut -c3- \
             | sed -n '/HW Address/p;/IPv4 Settings/,$p' \
-            | sed "/^$/d;4 i 　Remote Address:  $(dig +short myip.opendns.com @resolver1.opendns.com)"
+            | sed "/^$/d;4 i 　Remote Address:  $(curl -s uedsky.com/ip)"
     else
         local info="$(networksetup -getinfo Wi-Fi)"
         echo "HW Address:        $(echo "$info" | awk '/^Wi-Fi ID/{print $3}')"
