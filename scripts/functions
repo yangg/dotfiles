@@ -1,4 +1,3 @@
-# -*- mode: sh -*-
 
 # display function definition
 # declare -f [funcName]
