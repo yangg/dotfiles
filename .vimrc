@@ -187,7 +187,11 @@ autocmd FileType html,php,javascript setl includeexpr=substitute(v:fname,'^/',''
 
 " Auto reload nginx & apache {{{
 function! Reload()
-    let output = system(&ft == 'nginx' ? 'service nginx configtest && service nginx reload' : 'service apache2 reload')
+    let cmd = &ft == 'nginx' ? 'service nginx configtest && service nginx reload' : 'service apache2 reload'
+    if executable('systemctl')
+        let cmd = 'nginx -t && systemctl reload nginx'
+    endif
+    let output = system(cmd)
     if v:shell_error
         echohl WarningMsg | echo output
     endif
