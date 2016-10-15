@@ -38,7 +38,7 @@ function __get_status() {
     fi
 }
 OLD_PS1="$PS1"
-PS1='\[\e[31m\]$(__get_status)\[\e[0m\]\u | \[\e[32m\]\w\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
+PS1='\[\e[31m\]$(__get_status)\[\e[0m\]\[\e[32m\]\w\[\e[0m\] $(__git_ps1 "(\[\e[1;34m\]%s\[\e[0m\])")\$ '
 # set for ssh to server
 if [ "$TERM" = cygwin ]; then
     __ERROR_SIGN="ㄨ"
