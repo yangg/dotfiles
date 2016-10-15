@@ -11,6 +11,9 @@ alias l='ls -CF'
 alias la='ls -A'
 alias L='ls -lhA'
 alias ll='ls -lha'
+lswhich() {
+    which $@ | xargs ls -lh
+}
 
 alias -- -="cd -"
 alias ..='cd ..'
@@ -18,11 +21,14 @@ alias ...='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../../'
+.0() {
+    cd "$(git rev-parse --show-toplevel)"
+}
 
-alias g=git
-alias st='git st'
-alias pu='git push'
+
+alias ph='git push'
 alias pl='git pull'
+alias plh='git pull && git push'
 alias gdiff='git diff --no-index'
 alias py=python
 alias so=source

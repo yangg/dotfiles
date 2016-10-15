@@ -33,6 +33,11 @@
 	ar = !git ls-files -d -o --exclude-standard -z | xargs -0 git update-index --add --remove
 
 	ls = ls-tree --name-only HEAD
+	chp = cherry-pick
+	unchange = update-index --assume-unchanged
+	nounchange = update-index --no-assume-unchanged
+	# list assume unchanged
+	ignored = !git ls-files -v | grep "^[[:lower:]]"
 [format]
 	pretty = format: %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset
 [color]
@@ -48,3 +53,5 @@
 	frag = magenta
 [push]
 	default = simple
+[pull]
+	rebase = true
