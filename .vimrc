@@ -122,7 +122,7 @@ set number ruler showcmd
 set hlsearch incsearch
 set fileformats=unix,dos,mac encoding=utf-8
 set fileencodings=ucs-bom,utf-8,default,cp936,gb18030,big5,latin1
-set undofile undodir=$CACHEDIR
+if exists('&undofile') | set undofile undodir=$CACHEDIR | end
 set dir=$CACHEDIR//
 set autochdir
 set hidden                      " enable hide modified buffer for gf, :e
@@ -178,7 +178,7 @@ autocmd BufWinEnter *
             \ if line("'\"") <= line("$") |
             \   exe "normal! g`\"" | exe "normal! zv" |
             \ endif
-autocmd FileType json,yaml  setlocal ts=2 sw=2 sts=2
+autocmd FileType json,yaml,javascript  setlocal ts=2 sw=2 sts=2
 autocmd FileType ruby       setlocal ts=2 sw=2 sts=2
 autocmd FileType vim,help   setlocal keywordprg=:help
 autocmd FileType gitconfig  setlocal noexpandtab

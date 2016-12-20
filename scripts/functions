@@ -64,7 +64,7 @@ showme() {
         echo "HW Address:        $(echo "$info" | awk '/^Wi-Fi ID/{print $3}')"
         echo "IPv4 Settings:"
         echo "  Address:         $(echo "$info" | awk '/^IP address/{print $3}')"
-        echo "  Remote Address:  $(dig +short myip.opendns.com @resolver1.opendns.com)"
+        echo "  Remote Address:  $(curl -s ipinfo.io/ip)"
         echo "  Prefix:          $(echo "$info" | awk '/^Subnet mask/{print $3}')"
         echo "  Gateway:         $(echo "$info" | awk '/^Router/{print $2}')"
         cat /etc/resolv.conf | awk '/nameserver/{ print "  DNS:            ", $2 }'

@@ -27,7 +27,6 @@
 
 	mine  = !"git log --author=\"$(git config --get user.name)\" --no-merges"
 	today = !"git mine --since=1am --reverse --pretty=%s"
-	up    = !"git stash && git pull && git stash pop"
 
 	# add and remove new/deleted files from git index
 	ar = !git ls-files -d -o --exclude-standard -z | xargs -0 git update-index --add --remove
@@ -38,8 +37,13 @@
 	nounchange = update-index --no-assume-unchanged
 	# list assume unchanged
 	ignored = !git ls-files -v | grep "^[[:lower:]]"
+
+	g = grep --break --heading
 [format]
 	pretty = format: %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset
+[grep]
+	lineNumber = true
+	extendedRegexp = true
 [color]
 	ui = auto
 	# branch = always
@@ -55,3 +59,5 @@
 	default = simple
 [pull]
 	rebase = true
+[rebase]
+	autoStash = true
