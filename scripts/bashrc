@@ -17,6 +17,7 @@ source $DOTDIR/scripts/npm-completion.sh
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/gocode
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export EDITOR=vim
 
 shopt -s histappend
 shopt -s cdspell
@@ -55,6 +56,7 @@ HISTIGNORE='ls:exit'
 
 # complete -W "$(sed -E 's/[, ].*//' ~/.ssh/known_hosts)" ssh
 [ -e ~/.ssh/config ] && complete -o nospace -W "$(perl -ne 'print "$1 " if /^Host (.+)$/' ~/.ssh/config)" ssh
+[ -e ~/.ssh/config ] && complete -o nospace -W "$(perl -ne 'print "$1 " if /^Host (.+)$/' ~/.ssh/config)" mosh
 complete -o nospace -W 'allfile desktop ext' show
 _complete_upto() {
     local IFS=$'\n'
