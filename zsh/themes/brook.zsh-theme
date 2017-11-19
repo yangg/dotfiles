@@ -20,7 +20,6 @@ local white_bold=$fg_bold[white]
 local highlight_bg=$bg[red]
 
 
-# Format for git_prompt_long_sha() and git_prompt_short_sha()
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$blue_bold%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
@@ -36,7 +35,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$yellow_bold%}?"
 
 
 function _current_dir {
-    echo "${PWD/#$HOME/~}"
+  echo "%{$green%}${PWD/#$HOME/~}%{$reset_color%}"
 }
 
 function _user_host() {
@@ -46,7 +45,7 @@ function _user_host() {
     me="%n"
   fi
   if [[ -n $me ]]; then
-    echo "%{$fg[cyan]%}$me%{$reset_color%}:"
+    echo "%{$yellow%}$me%{$reset_color%}: "
   fi
 }
 
@@ -60,7 +59,30 @@ function _git_prompt {
   fi
 }
 
-local _return_status="%{$fg[red]%}%(?..✘ )%{$reset_color%}"
+function _git_origin_status {
+  if [[ -n $(git rev-parse --is-inside-work-tree 2>/dev/null) ]]; then
+    set -- $(git rev-list --left-right --count '@{upstream}...HEAD' 2>/dev/null)
+    if [[ $1  -gt 0 ]]; then
+      origin_status="$1↓"
+    fi
+    if [[ $2  -gt 0 ]]; then
+      origin_status="${origin_status}$2↑"
+    fi
+    if [[ -n $origin_status ]]; then
+      echo "%{$yellow_bold%}$origin_status%{$reset_color%}"
+    fi
+  fi
+}
+
+local _return_status="%{$red_bold%}%(?..✘ )%{$reset_color%}"
 
 # The prompt
 PROMPT='${_return_status}$(_user_host)$(_current_dir)$(_git_prompt) $ '
+RPROMPT='$(_git_origin_status)'
+preexec () {
+  DATE=$(date +"%I:%M:%S %p")
+  C=$(($COLUMNS-${#DATE}-1))
+  echo -e "\033[1A\033[${C}C ${DATE}"
+}
+
+# vim: ft=sh

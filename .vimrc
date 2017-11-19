@@ -178,8 +178,7 @@ autocmd BufWinEnter *
             \ if line("'\"") <= line("$") |
             \   exe "normal! g`\"" | exe "normal! zv" |
             \ endif
-autocmd FileType json,yaml,javascript  setlocal ts=2 sw=2 sts=2
-autocmd FileType ruby       setlocal ts=2 sw=2 sts=2
+autocmd FileType json,yaml,javascript,ruby,zsh  setlocal ts=2 sw=2 sts=2
 autocmd FileType vim,help   setlocal keywordprg=:help
 autocmd FileType gitconfig  setlocal noexpandtab
 
