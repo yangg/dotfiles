@@ -80,7 +80,7 @@ local _return_status="%{$red_bold%}%(?..✘ )%{$reset_color%}"
 PROMPT='${_return_status}$(_user_host)$(_current_dir)$(_git_prompt) $ '
 RPROMPT='$(_git_origin_status)'
 preexec () {
-  DATE=$(date +"%I:%M:%S %p")
+  DATE=$(date +"%I:%M:%S %p ")
   C=$(($COLUMNS-${#DATE}-1))
   echo -e "\033[1A\033[${C}C ${DATE}"
 }
