@@ -263,6 +263,7 @@ unbind C-b
 set -g prefix C-x
 bind C-x send-prefix
 
+unbind -n C-l
 
 # move status line to top
 #set -g status-position top
