@@ -11,3 +11,6 @@ function nvm-up {
     nvm install $1 --reinstall-packages-from=node
   fi
 }
+
+local version=$(cat $HOME/.nvm/alias/default 2>/dev/null)
+[ -n "$version" ] && PATH=$HOME/.nvm/versions/node/v$version/bin:$PATH

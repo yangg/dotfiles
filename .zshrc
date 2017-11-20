@@ -5,12 +5,11 @@ ZSH_CUSTOM=${DOTDIR:=~/.dotfiles}/zsh
 
 export EDITOR=vim
 
-if [ -z "$plugins" ]; then
-  plugins=(
-    git
-    # nvm
-  )
-fi
+plugins=(
+  git
+  osx
+  # nvm
+)
 # autoload -U zmv
 # autoload -U zcalc
 
