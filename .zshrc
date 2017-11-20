@@ -7,11 +7,17 @@ export EDITOR=vim
 
 plugins=(
   git
-  osx
+  extract
   # nvm
 )
-# autoload -U zmv
-# autoload -U zcalc
+if [ $(uname) = Darwin ]; then
+  plugins=($plugins osx)
+else
+  plugins=($plugins systemd)
+fi
+
+autoload -Uz zmv
+autoload -Uz zcalc
 
 # ~/.oh-my-zsh/templates/zshrc.zsh-template
 ZSH=$HOME/.oh-my-zsh
