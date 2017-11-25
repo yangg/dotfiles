@@ -12,5 +12,7 @@ function nvm-up {
   fi
 }
 
+# clear old nvm path
+PATH=$(echo $PATH | sed 's/\(^\|:\)[^:]*\/.nvm\/versions\/[^:]*\:/\1/g')
 local version=$(cat $HOME/.nvm/alias/default 2>/dev/null)
 [ -n "$version" ] && PATH=$HOME/.nvm/versions/node/v$version/bin:$PATH

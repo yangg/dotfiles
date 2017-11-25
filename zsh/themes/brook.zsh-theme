@@ -79,10 +79,30 @@ local _return_status="%{$red_bold%}%(?..✘ )%{$reset_color%}"
 # The prompt
 PROMPT='${_return_status}$(_user_host)$(_current_dir)$(_git_prompt) $ '
 RPROMPT='$(_git_origin_status)'
-preexec () {
-  DATE=$(date +"%I:%M:%S %p ")
-  C=$(($COLUMNS-${#DATE}-1))
-  echo -e "\033[1A\033[${C}C ${DATE}"
-}
 
+local exec_names=(node npm pm2 git python python3 go)
+_preexec_time () {
+  local exec_name="${2/ *}"
+  local col_offset=-1
+  local color_len="$cyan$reset_color"
+  local proc_info="$(date +"%I:%M:%S %p ")"
+  if [ ${exec_names[(i)$exec_name]} != $(($#exec_names + 1)) ]; then
+    local version="$($exec_name --version 2>/dev/null)"
+    if [ -n "$version" ]; then
+      # replace anything until " "<space>
+      # replace prefix "v"
+      proc_info="($exec_name: ${cyan}v${${version/#* }#v}$reset_color) $proc_info"
+      col_offset=$(($col_offset+${#color_len}))
+    fi
+  fi
+  C=$(($COLUMNS-${#proc_info}+$col_offset))
+  echo -e "\033[1A\033[${C}C ${proc_info}"
+}
+preexec_functions+=(_preexec_time)
+
+# set LSCOLORS for mac
+unset LSCOLORS
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# do not use a regex literal with =~ https://stackoverflow.com/a/12696899/1063091
 # vim: ft=sh

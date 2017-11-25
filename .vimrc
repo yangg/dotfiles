@@ -184,6 +184,11 @@ autocmd FileType gitconfig  setlocal noexpandtab
 
 autocmd FileType html,php,javascript setl includeexpr=substitute(v:fname,'^/','','')
 
+" function! ReplaceVar()
+"     return substitute(v:fname,'\($[^/]*\)','\=substitute(system("echo ".submatch(1)), "\n","","")','')
+" endfunction
+" autocmd FileType sh,zsh              setl includeexpr=ReplaceVar()
+
 " Auto reload nginx & apache {{{
 function! Reload()
     let cmd = &ft == 'nginx' ? 'service nginx configtest && service nginx reload' : 'service apache2 reload'
