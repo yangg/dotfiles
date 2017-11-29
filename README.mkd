@@ -15,4 +15,12 @@ vim +BundleInstall +qa
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 curl -O https://raw.github.com/yangg/dotfiles/master/.vimrc
 vim +BundleInstall +qa
+
+
+### Useful commands
+#### tmux
+```
+tmux swap-window -t [+-]x   # or move-window
+tmux detach -a              # detach all other client on this session except the current one
+```
 ```

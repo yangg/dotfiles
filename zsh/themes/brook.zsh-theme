@@ -80,21 +80,30 @@ local _return_status="%{$red_bold%}%(?..✘ )%{$reset_color%}"
 PROMPT='${_return_status}$(_user_host)$(_current_dir)$(_git_prompt) $ '
 RPROMPT='$(_git_origin_status)'
 
-local exec_names=(node npm pm2 git python python3 go)
+local exec_names=(node npm npx pm2 tsc git python python3 go)
+local show_node=(npm npx pm2 tsc)
 _preexec_time () {
-  local exec_name="${2/ *}"
+  local exec_name="${2/ *}" # replace anything after <space>
   local col_offset=-1
   local color_len="$cyan$reset_color"
-  local proc_info="$(date +"%I:%M:%S %p ")"
+  local proc_info=""
   if [ ${exec_names[(i)$exec_name]} != $(($#exec_names + 1)) ]; then
-    local version="$($exec_name --version 2>/dev/null)"
-    if [ -n "$version" ]; then
-      # replace anything until " "<space>
-      # replace prefix "v"
-      proc_info="($exec_name: ${cyan}v${${version/#* }#v}$reset_color) $proc_info"
-      col_offset=$(($col_offset+${#color_len}))
+    local names=($exec_name)
+    if [ ${show_node[(i)$exec_name]} != $(($#show_node + 1)) ]; then
+      names=(node $names)
     fi
+    local versions=()
+    for name in $names; do
+      local version="$($name --version 2>/dev/null)"
+      if [ -n "$version" ]; then
+        version="${version/#* }" # replace anything until <space>
+        versions+=("$name: $cyan$version$reset_color")
+        col_offset=$(($col_offset+${#color_len}))
+      fi
+    done
+    proc_info="(${versions[@]}) "
   fi
+  proc_info="$proc_info$(date +"%I:%M:%S %p ")"
   C=$(($COLUMNS-${#proc_info}+$col_offset))
   echo -e "\033[1A\033[${C}C ${proc_info}"
 }
