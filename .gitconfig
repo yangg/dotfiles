@@ -24,6 +24,7 @@
 	d  = diff
 	dc = diff --cached
 	dh = diff HEAD
+	dt = difftool
 
 	mine  = !"git log --author=\"$(git config --get user.name)\" --no-merges"
 	today = !"git mine --since=1am --reverse --pretty=%s"

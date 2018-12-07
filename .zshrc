@@ -11,12 +11,19 @@ export EDITOR=vim
 plugins=(
   git
   extract
+  redis-cli
   # nvm
 )
 if [ $(uname) = Darwin ]; then
-  plugins+=(osx)
+  plugins+=(
+    osx
+    httpie
+  )
 else
-  plugins+=(systemd)
+  plugins+=(
+    systemd
+    debian
+  )
 fi
 
 autoload -Uz zmv
@@ -30,6 +37,7 @@ source $ZSH/oh-my-zsh.sh
 # aliases
 alias gdiff='git diff --no-index'
 alias zshrc='vim $DOTDIR/.zshrc'
+alias chrome='open -a "Google Chrome"'
 
 
 # command vs builtin https://unix.stackexchange.com/a/86269/17051
@@ -38,3 +46,13 @@ TIMEFMT=$'real\t   %*E\nuser\t   %U\nsys\t   %S\ncpu\t   %P'
 # disable -r time
 # alias time='time -p'
 
+
+function rds-del {
+  redis-cli KEYS "$1" | xargs redis-cli DEL
+}
+alias rds-ls='redis-cli KEYS'
+
+pwdg() {
+  local chars="${2:A-Za-z0-9}"
+  LC_ALL=C < /dev/urandom tr -dc "$chars" | head -c${1:18};echo;
+}
