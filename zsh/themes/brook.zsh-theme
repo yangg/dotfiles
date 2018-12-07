@@ -35,11 +35,11 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$yellow_bold%}?"
 
 
 function _current_dir {
-  echo "%{$green%}${PWD/#$HOME/~}%{$reset_color%}"
+  echo "%(!.%{$red%}.%{$green%})%~%{$reset_color%}"
 }
 
 function _user_host() {
-  if [[ -n $SSH_CONNECTION ]]; then
+  if [[ -n $SSH_CONNECTION || -n $SSH_FORCE ]]; then # add SSH_FORCE=1 for sudo su
     me="%n@%m"
   elif [[ $LOGNAME != $USER ]]; then
     me="%n"
@@ -77,7 +77,7 @@ function _git_origin_status {
 local _return_status="%{$red_bold%}%(?..✘ )%{$reset_color%}"
 
 # The prompt
-PROMPT='${_return_status}$(_user_host)$(_current_dir)$(_git_prompt) $ '
+PROMPT='${_return_status}$(_user_host)$(_current_dir)$(_git_prompt) %(!.#.$) '
 RPROMPT='$(_git_origin_status)'
 
 local exec_names=(node npm npx pm2 tsc git python python3 go)
