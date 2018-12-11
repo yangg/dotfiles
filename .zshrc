@@ -35,6 +35,11 @@ source $ZSH/oh-my-zsh.sh
 
 
 # aliases
+# enable sudo with aliases
+# If the last character of the alias value is a space or tab character,
+# then the next command word following the alias is also checked for alias expansion.
+# http://www.gnu.org/software/bash/manual/bashref.html#Aliases
+alias sudo='sudo '
 alias gdiff='git diff --no-index'
 alias zshrc='vim $DOTDIR/.zshrc'
 alias chrome='open -a "Google Chrome"'
