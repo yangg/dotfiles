@@ -1,5 +1,5 @@
 
-
+DISABLE_AUTO_UPDATE=true
 ZSH_THEME=brook
 ZSH_CUSTOM=${DOTDIR:=~/.dotfiles}/zsh
 # Online editor: https://geoff.greer.fm/lscolors/

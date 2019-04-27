@@ -96,6 +96,7 @@ _preexec_time () {
     for name in $names; do
       local version="$($name --version 2>/dev/null)"
       if [ -n "$version" ]; then
+        version="${version% \(*\)}" # strip ending quote for "git --version" on mac "git version 2.17.2 (Apple Git-113)"
         version="${version/#* }" # replace anything until <space>
         versions+=("$name: $cyan$version$reset_color")
         col_offset=$(($col_offset+${#color_len}))
